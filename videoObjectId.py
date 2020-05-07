@@ -1,44 +1,44 @@
-# export GOOGLE_APPLICATION_CREDENTIALS=kyourcredentials.json
-import io
-from cv2 import cv2
-from PIL import Image
+# 1) Create Google Vision API service account with .json key
+# 2) Create environment variable called GOOGLE_APPLICATION_CREDENTIALS with path 
+# to service account .json key
+# 3) Install and open Google Cloud SDK
+# 4) Type: gcloud auth activate-service-account [SERVICE ACCOUNT EMAIL] --key-file=[PATH OF .JSON KEY]
 
-# Imports the Google Cloud client library
+import io # input/output library
+from cv2 import cv2 # OpenCV library
+from PIL import Image # Pillow library
+# google cloud client libraries
 from google.cloud import vision
 from google.cloud.vision import types
 
-# Instantiates a client
-client = vision.ImageAnnotatorClient()
-def detect_text(path):
+client = vision.ImageAnnotatorClient() # client image function to return detected properies
+def detect_text(path): # text detection function definition with "path" argument
     """Detects text in the file."""
-    with io.open(path, 'rb') as image_file:
-        content = image_file.read()
+    with io.open(path, 'rb') as image_file: # open and read image_file in binary
+        content = image_file.read() # read and stores image_file content in content var
 
-    image = types.Image(content=content)
-    response = client.text_detection(image=image)
-    texts = response.text_annotations
-    string = ''
+    image = types.Image(content=content) # image to be processed request
+    response = client.text_detection(image=image) # if image is present, function returns detections
+    texts = response.text_annotations # detections from image
+    string = '' # initializes string variable
 
-    for text in texts:
-        string+=' ' + text.description
-    return string
+    for text in texts: # for all individual content within image detection
+        string+=' ' + text.description # store new individual content with space 
+    return string # return newest string
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0) # stores captured webcam video, frame-by-frame
 
 while(True):
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    file = 'live.png'
-    cv2.imwrite( file,frame)
-    
+    # for each captured frame
+    ret, frame = cap.read() # ret = returns true if frame is availible, frame = image array vector
+    file = 'live.png' # initialzes file to store a .png image 
+    cv2.imwrite( file,frame) # read captured frame stored in file variable
 
-    # print OCR text
-    print(detect_text(file))
+    print(detect_text(file)) # calls detect text file defined above with new file path and prints string
 
-    # Display the resulting frame
-    cv2.imshow('frame',frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-# When everything done, release the capture
-cap.release()
-cv2.destroyAllWindows()
+    cv2.imshow('frame',frame) # names dispay frame and displays image array vector for cap
+    if cv2.waitKey(1) & 0xFF == ord('q'): # frame waits 1 ms for keyboard even to equal keystroke q
+        break # if q is pressed, breaks form loop
+
+cap.release() # releases captured video
+cv2.destroyAllWindows() # destory display
