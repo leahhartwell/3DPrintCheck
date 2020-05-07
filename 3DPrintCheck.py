@@ -34,7 +34,7 @@ while(True):
 
     detect_printFailure(file) # calls detect print failure file defined above with new file path and prints labels
 
-    cv2.imshow('frame',frame) # names dispay frame and displays image array vector for cap
+    cv2.imshow('3D Print Check',frame) # names dispay frame and displays image array vector for cap
     if cv2.waitKey(1) & 0xFF == ord('q'): # frame waits 1 ms for keyboard even to equal keystroke q
         break # if q is pressed, breaks form loop
 
