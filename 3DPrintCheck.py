@@ -6,19 +6,16 @@
 
 import io # input/output library
 from cv2 import cv2 # OpenCV library
-# google cloud client libraries
-from google.cloud import automl
+# google cloud client libraries for AutoML Vision Cloud
+from google.cloud import automl 
 from google.cloud.automl import types
 
-project_id = "lofty-door-270403"
-model_id = "ICN2041463239291699200"
+project_id = "lofty-door-270403" # found from google cloud console under projects
+model_id = "ICN2041463239291699200" # found from autoMLmodel.py file terminal output
 prediction_client = automl.PredictionServiceClient() # client image function to return detected properies
-model_full_id = prediction_client.model_path(
-    project_id, "us-central1", model_id
-)
+model_full_id = prediction_client.model_path(project_id, "us-central1", model_id) # stores full id of model
 
 def detect_printFailure(path): # text detection function definition with "path" argument
-    """Detects print failure in the file."""
     with io.open(path, 'rb') as image_file: # open and read image_file in binary
         content = image_file.read() # read and stores image_file content in content var
 
