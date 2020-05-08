@@ -7,22 +7,30 @@
 import io # input/output library
 from cv2 import cv2 # OpenCV library
 # google cloud client libraries
-from google.cloud import vision
-from google.cloud.vision import types
+from google.cloud import automl
+from google.cloud.automl import types
 
-client = vision.ImageAnnotatorClient() # client image function to return detected properies
+project_id = "lofty-door-270403"
+model_id = "ICN2041463239291699200"
+prediction_client = automl.PredictionServiceClient() # client image function to return detected properies
+model_full_id = prediction_client.model_path(
+    project_id, "us-central1", model_id
+)
+
 def detect_printFailure(path): # text detection function definition with "path" argument
     """Detects print failure in the file."""
     with io.open(path, 'rb') as image_file: # open and read image_file in binary
         content = image_file.read() # read and stores image_file content in content var
 
-    image = types.Image(content=content) # image to be processed request
-    response = client.label_detection(image=image) # if image is present, function returns detections
-    labels = response.label_annotations # detections from image
-    
-    print('Labels:') # prints Labels:
-    for label in labels:
-        print(label.description)
+    image = types.Image(image_bytes=content) # image to be processed request
+    payload = types.ExamplePayload(image=image)
+    params = {"score_threshold": "0.8"}
+    response = prediction_client.predict(model_full_id, payload, params) # if image is present, function returns detections
+
+    print("Prediction results:")
+    for result in response.payload:
+        print("Predicted class name: {}".format(result.display_name))
+        print("Predicted class score: {}".format(result.classification.score))
 
 cap = cv2.VideoCapture(0) # stores captured webcam video, frame-by-frame
 
