@@ -1,10 +1,15 @@
 """
 Usage:
-  # From tensorflow/models/
+1. Open Anaconda Terminal
+2. Run:
+        activate tf
+        cd C:\Users\hartw\GitHub\models\research
+        python setup.py build
+        python setup.py install
   # Create train data:
-  python generate_tfrecord.py --csv_input=3Dprint_data/train_3Dprint_labels.csv  --image_dir=3Dprint_data/images --output_path=3Dprint_data/3Dprint_train.record
+        python generate_tfrecord.py --csv_input=3Dprint_data/train_3Dprint_labels.csv  --image_dir=3Dprint_data/3Dprint_images --output_path=3Dprint_data/3Dprint_train.record
   # Create test data:
-  python generate_tfrecord.py --csv_input=3Dprint_data/test_3Dprint_labels.csv --image_dir=3Dprint_data/images --output_path=3Dprint_data/3Dprint_test.record
+        python generate_tfrecord.py --csv_input=3Dprint_data/test_3Dprint_labels.csv --image_dir=3Dprint_data/3Dprint_images --output_path=3Dprint_data/3Dprint_test.record
 """
 from __future__ import division
 from __future__ import print_function
@@ -13,7 +18,8 @@ from __future__ import absolute_import
 import os
 import io
 import pandas as pd
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from PIL import Image
 from object_detection.utils import dataset_util
