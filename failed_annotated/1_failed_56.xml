@@ -1,0 +1,26 @@
+<annotation>
+	<folder>failed</folder>
+	<filename>1_failed_56.jpg</filename>
+	<path>C:\Users\hartw\GitHub\3DPrintCheck\failed\1_failed_56.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>275</width>
+		<height>183</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fail</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>21</xmin>
+			<ymin>49</ymin>
+			<xmax>57</xmax>
+			<ymax>104</ymax>
+		</bndbox>
+	</object>
+</annotation>
