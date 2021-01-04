@@ -1,0 +1,9 @@
+python model_main_tf2.py -- \
+  --model_dir=ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03 --num_train_steps=10000 \
+  --sample_1_of_n_eval_examples=1 \
+  --pipeline_config_path=training/ssd_mobilenet_v2_quantized_300x300_coco.config \
+  --alsologtostderr
+
+set PYTHONPATH=C:\Users\hartw\GitHub\models;C:\Users\hartw\GitHub\models\research;C:\Users\hartw\GitHub\models\research\slim
+
+python model_main_tf2.py --model_dir=ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03 --num_train_steps=10000 --sample_1_of_n_eval_examples=1 --pipeline_config_path=training/ssd_mobilenet_v2_quantized_300x300_coco.config --alsologtostderr
